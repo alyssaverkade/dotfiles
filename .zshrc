@@ -1,8 +1,8 @@
-source ~/antigen.zsh
+bindkey -e
 source ~/.aliases
-antigen bundle rimraf/k
-antigen theme candy
-antigen apply
+source ~/.profile
+
+zplug 'cbrock/sugar-free', as:theme
 
 globalias() {
    if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
@@ -18,3 +18,14 @@ bindkey " " globalias
 bindkey "^ " magic-space
 bindkey -M isearch " " magic-space
 eval "$(rbenv init -)"
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load
+
+fpath=(/usr/local/share/zsh-completions $fpath)
