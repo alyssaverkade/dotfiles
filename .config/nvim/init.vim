@@ -6,6 +6,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
@@ -20,6 +22,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-buftabline'
 call plug#end()
+set t_Co=256
 set completeopt=noinsert,menuone,noselect
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
 set number relativenumber
@@ -102,7 +105,12 @@ augroup line_return
         \ endif
   augroup END
 autocmd BufWritePre *.h,*.hpp,*.cc,*.cpp call Formatonsave()
-" autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * %s/\s\+$//e
+function! FmtRust()
+  let current_pos = getpos(".")
+  :%! rustfmt
+  call setpos(".", current_pos)
+endfunction
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -133,7 +141,7 @@ endfunction
 function! ExpandCompletions()
   if pumvisible()
     if coc#expandableOrJumpable()
-      return "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" 
+      return "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>"
     else
       return "\<C-n>"
     endif
