@@ -1,4 +1,17 @@
 bindkey -e
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
+setopt histignorealldups
+setopt histreduceblanks
+setopt incappendhistory
+setopt sharehistory
+setopt autocd
+setopt correctall
+setopt autolist
+setopt automenu
+setopt alwaystoend
+setopt equals glob globdots globstarshort globsubst
 source ~/.aliases
 source ~/.profile
 
