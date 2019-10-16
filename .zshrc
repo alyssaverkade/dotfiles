@@ -12,6 +12,7 @@ setopt autolist
 setopt automenu
 setopt alwaystoend
 setopt equals glob globdots globstarshort globsubst
+unsetopt beep # ANNOYING
 source ~/.aliases
 source ~/.profile
 
