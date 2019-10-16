@@ -35,7 +35,6 @@ zle -N globalias
 bindkey " " globalias
 bindkey "^ " magic-space
 bindkey -M isearch " " magic-space
-eval "$(rbenv init -)"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
