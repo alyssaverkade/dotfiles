@@ -2,6 +2,7 @@ bindkey -e
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
+autoload -U edit-command-line
 setopt histignorealldups
 setopt histreduceblanks
 setopt incappendhistory
