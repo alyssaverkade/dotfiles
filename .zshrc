@@ -8,11 +8,14 @@ setopt histreduceblanks
 setopt incappendhistory
 setopt sharehistory
 setopt autocd
-setopt correctall
 setopt autolist
 setopt automenu
 setopt alwaystoend
-setopt equals glob globdots globstarshort globsubst
+setopt extendedglob
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+autoload -Uz compinit
+compinit
 unsetopt beep # ANNOYING
 source ~/.aliases
 source ~/.profile
