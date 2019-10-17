@@ -1,5 +1,6 @@
 ;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 (after! evil-snipe
+  ;; remove the only horrible part about the doom config
   (evil-snipe-mode -1)
   (evil-snipe-override-mode -1)
   (map! :n "s" #'evil-substitute))
