@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+set -e
+
+curl 'wttr.in/?format="%t"' | tr -d '"'
