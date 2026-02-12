@@ -2,9 +2,7 @@ return {
   { "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
   "junegunn/fzf.vim" ,
   {
-    "polirritmico/monokai-nightasty.nvim",
-    lazy = false,
-    priority = 1000,
+    "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = {}
   },
   "luochen1990/rainbow",
   "sheerun/vim-polyglot",
