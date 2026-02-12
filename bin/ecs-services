@@ -2,17 +2,18 @@
 
 set -e
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
   AWS_PROFILE="$(aws-profiles)"
 else
   AWS_PROFILE="$1"
 fi
 
-if [ -n "$2" ]; then
+if [[ -n "$2" ]]; then
   ECS_CLUSTER="$2"
 else
-  ECS_CLUSTER="$(ecs-clusters $AWS_PROFILE | fzy)"
+  ECS_CLUSTERS="$(ecs-clusters "${AWS_PROFILE}")"
+  ECS_CLUSTER="$(fzy <<< "${ECS_CLUSTERS}")"
 fi
 
-SERVICE_ARNS="$(set -x; aws ecs list-services --profile "$AWS_PROFILE" --cluster "$ECS_CLUSTER")"
-jq -r '.serviceArns | map(split("/")) | map(.[2]) | .[]' <<< "$SERVICE_ARNS"
+SERVICE_ARNS="$(set -x; aws ecs list-services --profile "${AWS_PROFILE}" --cluster "${ECS_CLUSTER}")"
+jq -r '.serviceArns | map(split("/")) | map(.[2]) | .[]' <<< "${SERVICE_ARNS}"

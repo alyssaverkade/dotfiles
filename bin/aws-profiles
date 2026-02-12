@@ -2,4 +2,5 @@
 
 set -e
 
-aws configure list-profiles | fzy
+PROFILES="$(aws configure list-profiles)"
+fzy <<< "${PROFILES}"

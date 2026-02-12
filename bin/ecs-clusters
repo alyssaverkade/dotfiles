@@ -3,10 +3,12 @@
 set -e
 
 
-if [ $# -eq 0 ]; then
-  AWS_PROFILE=$(aws-profiles)
+if [[ $# -eq 0 ]]; then
+  AWS_PROFILE="$(aws-profiles)"
 else
-  AWS_PROFILE=$1
+  AWS_PROFILE="$1"
 fi
 
-aws ecs list-clusters --profile $AWS_PROFILE | jq -r '.clusterArns | map(split("/")) | .[0:]| map(.[1]) | .[]'
+ECS_CLUSTERS="$(set -x; aws ecs list-clusters --profile "${AWS_PROFILE}")"
+
+jq -r '.clusterArns | map(split("/")) | .[0:]| map(.[1]) | .[]' <<< "${ECS_CLUSTERS}"
