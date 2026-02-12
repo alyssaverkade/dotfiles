@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+if [ $# -eq 0 ]; then
+  AWS_PROFILE="$(aws-profiles)"
+else
+  AWS_PROFILE="$1"
+fi
+
+if [ -n "$2" ]; then
+  ECS_CLUSTER="$2"
+else
+  ECS_CLUSTER="$(ecs-clusters $AWS_PROFILE | fzy)"
+fi
+
+if [ -n "$3" ]; then
+  ECS_SERVICE="$3"
+else
+  ECS_SERVICE="$(ecs-services $AWS_PROFILE $ECS_CLUSTER | fzy)"
+fi
+
+if [ -n "$4" ]; then
+  ECS_TASK="$4"
+else
+  ECS_TASK="$(ecs-tasks $AWS_PROFILE $ECS_CLUSTER $ECS_SERVICE | fzy)"
+fi
+
+ECS_CONTAINER="$(aws ecs describe-tasks --profile "$AWS_PROFILE" --cluster "$ECS_CLUSTER" --tasks "$ECS_TASK" | jq -r '.tasks | .[].containers.[].name' | fzy)"
+
+
+aws ecs execute-command --profile "$AWS_PROFILE" --cluster "$ECS_CLUSTER" --task "$ECS_TASK" --container "$ECS_CONTAINER" --interactive --command "/bin/bash"
+
+

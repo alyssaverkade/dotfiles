@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+if [ $# -eq 0 ]; then
+  AWS_PROFILE=$(aws-profiles)
+else
+  AWS_PROFILE=$1
+fi
+
+aws ecs list-clusters --profile $AWS_PROFILE | jq -r '.clusterArns | map(split("/")) | .[0:]| map(.[1]) | .[]'

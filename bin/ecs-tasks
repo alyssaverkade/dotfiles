@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ $# -eq 0 ]; then
+  AWS_PROFILE="$(aws-profiles)"
+else
+  AWS_PROFILE="$1"
+fi
+
+if [ -n "$2" ]; then
+  ECS_CLUSTER="$2"
+else
+  ECS_CLUSTER="$(ecs-clusters $AWS_PROFILE | fzy)"
+fi
+
+if [ -n "$3" ]; then
+  ECS_SERVICE="$3"
+else
+  ECS_SERVICE="$(ecs-services $AWS_PROFILE $ECS_CLUSTER | fzy)"
+fi
+
+ECS_TASKS="$(set -x; aws ecs list-tasks --profile "$AWS_PROFILE" --cluster "$ECS_CLUSTER" --service-name "$ECS_SERVICE")"
+jq -r '.taskArns | .[]'  <<< "$ECS_TASKS"

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ $# -eq 0 ]; then
+  AWS_PROFILE="$(aws-profiles)"
+else
+  AWS_PROFILE="$1"
+fi
+
+if [ -n "$2" ]; then
+  ECS_CLUSTER="$2"
+else
+  ECS_CLUSTER="$(ecs-clusters $AWS_PROFILE | fzy)"
+fi
+
+SERVICE_ARNS="$(set -x; aws ecs list-services --profile "$AWS_PROFILE" --cluster "$ECS_CLUSTER")"
+jq -r '.serviceArns | map(split("/")) | map(.[2]) | .[]' <<< "$SERVICE_ARNS"
