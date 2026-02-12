@@ -1,0 +1,35 @@
+vim.opt.completeopt = "noinsert,menuone,noselect"
+vim.opt.conceallevel = 0
+vim.opt.termguicolors = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 0
+vim.opt.showtabline = 0
+vim.opt.matchtime = 2
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.shiftwidth = 2
+
+vim.opt.autoread = true
+vim.opt.magic = true
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.showmatch = true
+vim.opt.incsearch = true
+vim.opt.gdefault = true
+vim.opt.hidden = true
+vim.opt.inccommand = "split"
+vim.opt.lazyredraw = true
+-- vim.opt.noswapfile = true
+vim.opt.updatetime = 25
+-- vim.opt.shortmess = "+c"
+vim.opt.cmdheight = 2
+-- vim.opt.nobackup = true
+-- vim.opt.nowritebackup = true
+-- vim.opt.listchars = "tab:▸\ ,extends:❯,precedes:❮"
+vim.opt.list = true
+vim.opt.title = true
+-- vim.opt.notimeout = true
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen= 10
+vim.opt.background = "dark"
+

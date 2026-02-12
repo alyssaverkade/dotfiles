@@ -1,0 +1,15 @@
+return {
+  'tpope/vim-surround',
+  'tpope/vim-vinegar',
+  'tpope/vim-commentary',
+  'tpope/vim-abolish',
+  'tpope/vim-rake',
+  'tpope/vim-endwise',
+  'tpope/vim-bundler',
+  'tpope/vim-unimpaired',
+  'tpope/vim-repeat',
+  'tpope/vim-projectionist',
+  'tpope/vim-rails',
+  'tpope/vim-abolish',
+  'tpope/vim-fugitive',
+  }
