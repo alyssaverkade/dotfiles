@@ -1,3 +1,9 @@
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  callback = function()
+    vim.cmd([[Trouble qflist open]])
+  end,
+})
+
 return {
   {
     "nvim-tree/nvim-web-devicons",
@@ -10,7 +16,15 @@ return {
   },
   {
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      modes = {
+        diagnostics = {
+          groups = {
+            { "filename", format = "{file_icon} {basename:Title} {count}" },
+          },
+        },
+      },
+    },
     cmd = "Trouble",
     keys = {
       {
@@ -98,6 +112,14 @@ return {
       },
       opts_extend = { "sources.default" }
     },
+    {
+      'nvim-telescope/telescope.nvim', version = '*',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        -- optional but recommended
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      }
+    },
 
     {
       "mason-org/mason-lspconfig.nvim",
@@ -105,6 +127,53 @@ return {
       dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
+      },
+    },
+    {
+      "pwntester/octo.nvim",
+      cmd = "Octo",
+      opts = {
+        -- or "fzf-lua" or "snacks" or "default"
+        picker = "telescope",
+        -- bare Octo command opens picker of commands
+        enable_builtin = true,
+        use_local_fs = true,
+      },
+      keys = {
+        {
+          "<leader>oi",
+          "<CMD>Octo issue list<CR>",
+          desc = "List GitHub Issues",
+        },
+        {
+          "<leader>op",
+          "<CMD>Octo pr list<CR>",
+          desc = "List GitHub PullRequests",
+        },
+        {
+          "<leader>od",
+          "<CMD>Octo discussion list<CR>",
+          desc = "List GitHub Discussions",
+        },
+        {
+          "<leader>on",
+          "<CMD>Octo notification list<CR>",
+          desc = "List GitHub Notifications",
+        },
+        {
+          "<leader>os",
+          function()
+            require("octo.utils").create_base_search_command { include_current_repo = true }
+          end,
+          desc = "Search GitHub",
+        },
+      },
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        -- OR "ibhagwan/fzf-lua",
+        -- OR "folke/snacks.nvim",
+        "nvim-tree/nvim-web-devicons",
       },
     }
   }
