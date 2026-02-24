@@ -33,5 +33,10 @@ return {
   "wellle/targets.vim",
   "wellle/visual-split.vim",
   "Raimondi/delimitMate",
-  "farmergreg/vim-lastplace"
+  "farmergreg/vim-lastplace",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+  },
 }
