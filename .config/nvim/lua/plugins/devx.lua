@@ -71,8 +71,7 @@ return {
     -- If you use nix, you can build from source using latest nightly rust with:
     -- build = 'nix run .#build-plugin',
 
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
+    --@module 'blink.cmp'
     opts = {
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
       -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -175,5 +174,15 @@ return {
         -- OR "folke/snacks.nvim",
         "nvim-tree/nvim-web-devicons",
       },
+    },
+    {
+      'stevearc/conform.nvim',
+      opts = {
+        formatters_by_ft = {
+          rust = { "rustfmt", lsp_format = "fallback" },
+          ruby = { "rubocop", lsp_format = "fallback" },
+          python = { "ruff_format" }
+        },
+      }
     }
   }
