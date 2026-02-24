@@ -33,4 +33,5 @@ return {
   "wellle/targets.vim",
   "wellle/visual-split.vim",
   "Raimondi/delimitMate",
+  "farmergreg/vim-lastplace"
 }
